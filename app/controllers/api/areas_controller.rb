@@ -1,5 +1,5 @@
 class Api::AreasController < Api::ApiController
-  before_filter :authenticate_request!
+  before_action :authenticate_request!
   before_action :set_area, only: [:show, :update, :destroy]
 
   # GET /areas
@@ -7,7 +7,7 @@ class Api::AreasController < Api::ApiController
     company = Company.find(@current_user.company_id)
     @areas = company.areas
 
-    render json: @areas
+    render json: @areas, each_serializer: AreaListSerializer
   end
 
   # GET /areas/1
