@@ -1,0 +1,2 @@
+class Appraisal < ApplicationRecord
+end
