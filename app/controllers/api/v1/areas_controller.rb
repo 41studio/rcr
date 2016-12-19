@@ -2,7 +2,7 @@ class Api::V1::AreasController < Api::V1::ApiController
   before_action :authenticate_request!
   before_action :set_area, only: [:show, :update, :destroy]
 
-  # GET /areas
+  # GET /api/v1/areas
   def index
     company = Company.find(@current_user.company_id)
     @areas = company.areas
@@ -10,7 +10,7 @@ class Api::V1::AreasController < Api::V1::ApiController
     render json: @areas, each_serializer: AreaListSerializer
   end
 
-  # GET /areas/1
+  # GET /api/v1/areas/1
   def show
     render json: @area
   end
