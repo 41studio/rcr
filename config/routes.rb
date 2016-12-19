@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :areas
     resources :appraisals
+    resources :indicators, only: :index
   end
 
   resources :companies
