@@ -2,7 +2,6 @@ class Api::V1::UserRegistrationController < Api::V1::ApiController
   def register_user
     user = User.new(user_params)
     user.build_company(name: params[:company])
-    user.role = Role.find_by_name('manager')
 
     if user.save
       render json: payload(user)
@@ -23,7 +22,7 @@ class Api::V1::UserRegistrationController < Api::V1::ApiController
 
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:email, :password, :password_confirmation, :role_id)
   end
   
 end

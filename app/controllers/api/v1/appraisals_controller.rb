@@ -47,7 +47,7 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
 
     # Only allow a trusted parameter "white list" through.
     def appraisal_params
-      params.require(:appraisal).permit(:date, :description, :indicator_id, :item_time_id)
+      params.require(:appraisal).permit(:date, :description, :indicator_id, :item_time_id, :manager_id, :helper_id)
     end
 
 end
