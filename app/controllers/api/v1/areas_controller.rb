@@ -39,7 +39,7 @@ class Api::V1::AreasController < Api::V1::ApiController
 
   # DELETE /appraisals/1
   def destroy
-    @area.destroy
+    @area.delete
   end
 
 

@@ -39,7 +39,7 @@ class Api::V1::ItemsController < Api::V1::ApiController
 
   # DELETE /api/v1/areas/:area_id/items/1
   def destroy
-    @item.destroy
+    @item.delete
   end
 
 

@@ -15,6 +15,7 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
   end
 
   # POST /api/v1/appraisals
+  # This is for helper role only
   def create
     @appraisal = Appraisal.new(appraisal_params)
 
@@ -26,6 +27,7 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
   end
 
   # PATCH/PUT /api/v1/appraisals/1
+  # This is for manager level only
   def update
     if @appraisal.update(appraisal_params)
       render json: @appraisal
