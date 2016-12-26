@@ -16,6 +16,33 @@ class Api::V1::AreasController < Api::V1::ApiController
   end
 
 
+  # POST /api/v1/areas
+  def create
+    @area = Area.new(area_params)
+    @area.company_id = @current_user.company_id
+
+    if @area.save
+      render json: @area, status: :created
+    else
+      render json: @area.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PATCH/PUT /api/v1/areas/1
+  def update
+    if @area.update(area_params)
+      render json: @area
+    else
+      render json: @area.errors, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /appraisals/1
+  def destroy
+    @area.destroy
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_area

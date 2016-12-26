@@ -19,7 +19,7 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
     @appraisal = Appraisal.new(appraisal_params)
 
     if @appraisal.save
-      render json: @appraisal, status: :created, location: @appraisal
+      render json: @appraisal, status: :created
     else
       render json: @appraisal.errors, status: :unprocessable_entity
     end
