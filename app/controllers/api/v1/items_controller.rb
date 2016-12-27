@@ -5,7 +5,7 @@ class Api::V1::ItemsController < Api::V1::ApiController
   # GET /api/v1/areas/:area_id/items
   def index
     area = Area.find(params[:area_id])
-    @items = area.items
+    @items = area.items.includes(:item_times)
 
     render json: @items
   end
