@@ -10,7 +10,7 @@ class Api::V1::AreasController < Api::V1::ApiController
 
   # GET /api/v1/areas
   api :GET, "/areas", "Get list of areas"
-  param :Authorization, String, required: true, desc: "User auth token"
+  header 'Authorization', String, required: true, desc: "User auth token"
   formats ['json']
   def index
     company = Company.find(@current_user.company_id)
@@ -21,7 +21,7 @@ class Api::V1::AreasController < Api::V1::ApiController
 
   # GET /api/v1/areas/1
   api :GET, "/areas/:id", "Get detail of the area"
-  param :Authorization, String, required: true, desc: "User auth token"
+  header 'Authorization', String, required: true, desc: "User auth token"
   param :id, String, required: true, desc: "Area ID"
   formats ['json']
   def show
@@ -30,7 +30,7 @@ class Api::V1::AreasController < Api::V1::ApiController
 
   # POST /api/v1/areas
   api :POST, "/areas", "Post a new area"
-  param :Authorization, String, required: true, desc: "User auth token"
+  header 'Authorization', String, required: true, desc: "User auth token"
   param_group :area
   formats ['json']
   def create
@@ -47,7 +47,7 @@ class Api::V1::AreasController < Api::V1::ApiController
   # PATCH/PUT /api/v1/areas/1
   api :PATCH, "/areas/:id", "Update area"
   api :PUT, "/areas/:id", "Update area"
-  param :Authorization, String, required: true, desc: "User auth token"
+  header 'Authorization', String, required: true, desc: "User auth token"
   param :id, String, required: true, desc: "Area ID"
   param_group :area
   formats ['json']
@@ -61,7 +61,7 @@ class Api::V1::AreasController < Api::V1::ApiController
 
   # DELETE /api/v1/areas/1
   api :DELETE, "/areas/:id", "Delete area"
-  param :Authorization, String, required: true, desc: "User auth token"
+  header 'Authorization', String, required: true, desc: "User auth token"
   param :id, String, required: true, desc: "Area ID"
   formats ['json']
   def destroy
