@@ -1,6 +1,6 @@
 class Appraisal < ApplicationRecord
-  belongs_to :item_time
-  belongs_to :indicator
+  belongs_to :item_time, optional: true
+  belongs_to :indicator, optional: true
 
   def helper
     User.find(self.helper_id).try(:email)
