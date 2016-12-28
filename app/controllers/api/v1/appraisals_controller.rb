@@ -18,6 +18,8 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
   # This is for helper role only
   def create
     @appraisal = Appraisal.new(appraisal_params)
+    @appraisal.helper_id = @current_user.id
+    @appraisal.checked = true
 
     if @appraisal.save
       render json: @appraisal, status: :created
