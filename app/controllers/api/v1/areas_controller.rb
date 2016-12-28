@@ -25,8 +25,8 @@ class Api::V1::AreasController < Api::V1::ApiController
   param :id, String, required: true, desc: "Area ID"
   formats ['json']
   def show
-    @area.current_time = Time.now
-    render json: @area, serializer_params: { current_time: Time.now }
+    @area.search_date = (params[:date].present? ? params[:date] : Date.today)
+    render json: @area
   end
 
   # POST /api/v1/areas

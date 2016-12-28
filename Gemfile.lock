@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/radar/by_star.git
+  revision: 3fe3ef33e98aebcc226cbfea51d1e5101f948c78
+  specs:
+    by_star (2.2.1)
+      activesupport
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -158,6 +165,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   apipie-rails
+  by_star!
   byebug
   devise
   jwt
