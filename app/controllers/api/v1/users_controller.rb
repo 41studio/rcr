@@ -4,7 +4,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   # GET /companies
   def index
-    @users = User.where(company_id: @current_user.company_id)
+    @users = User.includes(:role).where(company_id: @current_user.company_id)
 
     render json: @users
   end
