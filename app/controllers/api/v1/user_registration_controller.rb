@@ -1,4 +1,19 @@
 class Api::V1::UserRegistrationController < Api::V1::ApiController
+
+  def_param_group :user  do
+    param :user, Hash do 
+      param :email, String, desc: "Email of the user", required: true
+      param :password, String, desc: "Password of the user", required: true
+      param :password_confirmation, String, desc: "Password confirmation of the user", required: true
+      param :role_id, String, desc: "Role of the user", required: true
+    end
+  end
+  
+  # POST /api/v1/register_user
+  api :POST, "/register_user", "Register new user"
+  param_group :user
+  param :company, String, required: true, desc: "Company of the user"
+  formats ['json']
   def register_user
     user = User.new(user_params)
     user.build_company(name: params[:company])
