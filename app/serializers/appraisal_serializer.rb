@@ -3,7 +3,7 @@ class AppraisalSerializer < ActiveModel::Serializer
 
   def result_detail
     {
-      indicator: object.indicator.description,
+      indicator: (object.indicator ? object.indicator.description : '-'),
       helper: object.helper,
       manager: object.manager,
       checked_at: object.created_at,
