@@ -8,7 +8,7 @@ class AreaSerializer < ActiveModel::Serializer
       item_area = { id: item.id, name: item.name }
       
       item.item_times.each do |item_time|
-        item_times_area << {id: item_time.id, time: item_time.time}
+        item_times_area << {id: item_time.id, time: item_time.time, current_time: object.current_time}
       end
 
       item_area[:times] = item_times_area
