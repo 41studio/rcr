@@ -16,7 +16,7 @@ class Api::V1::UserRegistrationController < Api::V1::ApiController
     return nil unless user and user.id
     {
       auth_token: JsonWebToken.encode({user_id: user.id}),
-      user: {id: user.id, email: user.email}
+      user: {id: user.id, email: user.email, role: user.role.try(:name)}
     }
   end
 
