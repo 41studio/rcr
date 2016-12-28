@@ -2,7 +2,16 @@ class Api::V1::AreasController < Api::V1::ApiController
   before_action :authenticate_request!
   before_action :set_area, only: [:show, :update, :destroy]
 
+  def_param_group :area  do
+    param :area, Hash do 
+      param :name, String, required: true, desc: "Name of the area"
+    end
+  end
+
   # GET /api/v1/areas
+  api :GET, "/areas", "Get list of areas"
+  param :Authorization, String, required: true, desc: "User auth token"
+  formats ['json']
   def index
     company = Company.find(@current_user.company_id)
     @areas = company.areas
@@ -11,12 +20,19 @@ class Api::V1::AreasController < Api::V1::ApiController
   end
 
   # GET /api/v1/areas/1
+  api :GET, "/areas/:id", "Get detail of the area"
+  param :Authorization, String, required: true, desc: "User auth token"
+  param :id, String, required: true, desc: "Area ID"
+  formats ['json']
   def show
     render json: @area
   end
 
-
   # POST /api/v1/areas
+  api :POST, "/areas", "Post a new area"
+  param :Authorization, String, required: true, desc: "User auth token"
+  param_group :area
+  formats ['json']
   def create
     @area = Area.new(area_params)
     @area.company_id = @current_user.company_id
@@ -29,6 +45,12 @@ class Api::V1::AreasController < Api::V1::ApiController
   end
 
   # PATCH/PUT /api/v1/areas/1
+  api :PATCH, "/areas/:id", "Update area"
+  api :PUT, "/areas/:id", "Update area"
+  param :Authorization, String, required: true, desc: "User auth token"
+  param :id, String, required: true, desc: "Area ID"
+  param_group :area
+  formats ['json']
   def update
     if @area.update(area_params)
       render json: @area
@@ -37,7 +59,11 @@ class Api::V1::AreasController < Api::V1::ApiController
     end
   end
 
-  # DELETE /appraisals/1
+  # DELETE /api/v1/areas/1
+  api :DELETE, "/areas/:id", "Delete area"
+  param :Authorization, String, required: true, desc: "User auth token"
+  param :id, String, required: true, desc: "Area ID"
+  formats ['json']
   def destroy
     @area.delete
   end
