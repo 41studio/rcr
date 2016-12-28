@@ -6,3 +6,5 @@ Apipie.configure do |config|
   # where is your API defined?
   config.api_controllers_matcher = File.join(Rails.root, "app", "controllers", "api", "v1", "**","*.rb")
 end
+
+require 'apipie_custom_validator'
