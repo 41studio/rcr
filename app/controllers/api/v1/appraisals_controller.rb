@@ -4,13 +4,13 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
 
   def_param_group :appraisal  do
     param :appraisal, Hash do 
+      param :date, String, desc: "Date of the appraisal"
+      param :description, String, desc: "Description of the appraisal"
+      param :checked, String, desc: "Checked of the appraisal"
       param :item_time_id, String, desc: "Item time ID of the appraisal"
       param :indicator_id, String, desc: "Indicator ID of the appraisal"
       param :manager_id, String, desc: "Manager ID of the appraisal"
       param :helper_id, String, desc: "Helper ID of the appraisal"
-      param :date, String, desc: "Date of the appraisal"
-      param :description, String, desc: "Description of the appraisal"
-      param :checked, String, desc: "Checked of the appraisal"
     end
   end
 
