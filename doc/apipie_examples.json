@@ -1,0 +1,162 @@
+{ 
+  "api_authentication#authenticate_user":[
+    { 
+      "verb": "POST",
+      "path": "/api/v1/auth_user",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyfQ.mvbquU9KsTe2AfcuDcnlHSHcxaz21uCRyMlXwSVAtpQ",
+        "user": {
+          "id": 2,
+          "email": "ob@example.com",
+          "role": "helper"
+        }
+      }
+    }
+  ],
+  "areas#index":[
+    { 
+      "verb": "GET",
+      "path": "/api/v1/areas",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": [
+          { 
+            "id": "1",
+            "type": "areas",
+            "attributes":
+            {
+              "name": "Meeting room"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "areas#show":[
+    {
+      "verb": "GET",
+      "path": "/api/v1/areas/:id",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": {
+          "id": "1",
+          "type": "areas",
+          "attributes": {
+            "name": "Toilet",
+            "item-list": [
+              {
+                "id": 3,
+                "name": "Full drain",
+                "times": [
+                  {
+                    "id": 1,
+                    "time": "9.00",
+                    "appraisals": [
+                      {
+                        "id": 5,
+                        "item-time-id": 1,
+                        "indicator-id": 2,
+                        "description": null,
+                        "checked": true,
+                        "manager-id": null,
+                        "helper-id": 1,
+                        "indicator": "Good",
+                        "checked-at": "2016-12-28",
+                        "reviewed-at": "2016-12-28"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "areas#create":[
+    {
+      "verb": "POST",
+      "path": "/api/v1/areas",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": {
+          "id": "1",
+          "type": "areas",
+          "attributes": {
+            "name": "Kitchen",
+            "item-list": []
+          }
+        }
+      }
+    }
+  ],
+  "areas#update":[
+    {
+      "verb": "PATCH/PUT",
+      "path": "/api/v1/areas/:id",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": {
+          "id": "1",
+          "type": "areas",
+          "attributes": {
+            "name": "Toilet",
+            "item-list": [
+              {
+                "id": 3,
+                "name": "Full drain",
+                "times": [
+                  {
+                    "id": 1,
+                    "time": "9.00",
+                    "appraisals": [
+                      {
+                        "id": 5,
+                        "item-time-id": 1,
+                        "indicator-id": 2,
+                        "description": null,
+                        "checked": true,
+                        "manager-id": null,
+                        "helper-id": 1,
+                        "indicator": "Good",
+                        "checked-at": "2016-12-28",
+                        "reviewed-at": "2016-12-28"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

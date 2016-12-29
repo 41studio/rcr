@@ -23,6 +23,8 @@ class Api::V1::AreasController < Api::V1::ApiController
   api :GET, "/areas/:id", "Get detail of the area"
   header 'Authentication', "User auth token"
   param :id, String, required: true, desc: "Area ID"
+  param :date, String, desc: "Date for filter appraisals"
+  
   formats ['json']
   def show
     @area.search_date = (params[:date].present? ? params[:date] : Date.today)

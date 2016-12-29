@@ -3,8 +3,7 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
   before_action :set_appraisal, only: [:show, :update, :destroy]
 
   def_param_group :appraisal  do
-    param :appraisal, Hash do 
-      param :date, String, desc: "Date of the appraisal"
+    param :appraisal, Hash do
       param :description, String, desc: "Description of the appraisal"
       param :checked, String, desc: "Checked of the appraisal"
       param :item_time_id, String, desc: "Item time ID of the appraisal"
@@ -85,7 +84,7 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
 
     # Only allow a trusted parameter "white list" through.
     def appraisal_params
-      params.require(:appraisal).permit(:date, :description, :indicator_id, :item_time_id, :manager_id, :helper_id)
+      params.require(:appraisal).permit(:description, :indicator_id, :item_time_id, :manager_id, :helper_id)
     end
 
 end

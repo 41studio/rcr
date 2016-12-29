@@ -10,10 +10,10 @@ class AreaSerializer < ActiveModel::Serializer
       item.item_times.each do |item_time|
         appraisal_items = []
         item_area_member = {id: item_time.id, time: item_time.time}
-        
-        Appraisal.where(item_time_id: item_time.id).by_day(object.search_date).each do |appraisal|
+
+        item_time.appraisals.by_day(object.search_date).each do |appraisal|
           appraisal_items << appraisal.attributes.delete_if {|key| ['created_at', 'updated_at'].include? key }.merge(
-            {checked_at: appraisal.created_at.strftime("%Y-%m-%d"), reviewed_at: appraisal.updated_at.strftime("%Y-%m-%d")})
+            {indicator: appraisal.indicator_description, checked_at: appraisal.created_at.strftime("%Y-%m-%d"), reviewed_at: appraisal.updated_at.strftime("%Y-%m-%d")})
         end
 
         item_area_member[:appraisals] = appraisal_items

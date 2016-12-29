@@ -5,7 +5,7 @@ class Api::V1::ItemsController < Api::V1::ApiController
   def_param_group :item  do
     param :item, Hash do 
       param :name, String, desc: "Name of the item"
-      param :item_times_attributes, Array do
+      param :item_times_attributes, Hash do
         param "", Hash do 
           param :time, String, desc: "Time of the item time"
           param :_destroy, String, desc: "State for delete the item time"
