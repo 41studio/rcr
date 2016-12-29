@@ -6,4 +6,12 @@ class User < ApplicationRecord
 
   belongs_to :company
   belongs_to :role
+
+  def is_manager?
+    role.name.eql?("manager")
+  end
+
+  def is_helper?
+    role.name.eql?("helper")
+  end
 end

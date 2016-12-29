@@ -1,4 +1,4 @@
-{ 
+{  // api_authentication_controller
   "api_authentication#authenticate_user":[
     { 
       "verb": "POST",
@@ -19,6 +19,141 @@
       }
     }
   ],
+
+  // appraisals_controller
+  "appraisals#index":[
+    { 
+      "verb": "GET",
+      "path": "/api/v1/appraisals",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": [
+          {
+            "id": "1",
+            "type": "appraisals",
+            "attributes": {
+              "checked": true,
+              "description": "Great Job!",
+              "result-detail": {
+                "indicator": "Great",
+                "helper": "ob@example.com",
+                "manager": "manager@example.com",
+                "checked-at": "2016-12-28T08:14:46.613Z",
+                "approved-at": "2016-12-28T08:14:46.613Z"
+              }
+            }
+          },
+          {
+            "id": "2",
+            "type": "appraisals",
+            "attributes": {
+              "checked": true,
+              "description": "Good",
+              "result-detail": {
+                "indicator": "Good",
+                "helper": "ob@example.com",
+                "manager": "manager@example.com",
+                "checked-at": "2016-12-28T09:12:01.998Z",
+                "approved-at": "2016-12-28T09:12:01.998Z"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "appraisals#show":[
+    { 
+      "verb": "GET",
+      "path": "/api/v1/appraisals/:id",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": {
+          "id": "1",
+          "type": "appraisals",
+          "attributes": {
+            "checked": true,
+            "description": "Great Job!",
+            "result-detail": {
+              "indicator": "Great",
+              "helper": "ob@example.com",
+              "manager": "manager@example.com",
+              "checked-at": "2016-12-28T08:14:46.613Z",
+              "approved-at": "2016-12-28T08:14:46.613Z"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "appraisals#create":[
+    { 
+      "verb": "POST",
+      "path": "/api/v1/appraisals",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": {
+          "id": "12",
+          "type": "appraisals",
+          "attributes": {
+            "checked": true,
+            "description": "test",
+            "result-detail": {
+              "indicator": "Great",
+              "helper": "ob@example.com",
+              "manager": null,
+              "checked-at": "2016-12-29T07:43:28.480Z",
+              "approved-at": "-"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "appraisals#update":[
+    { 
+      "verb": "PATCH/PUT",
+      "path": "/api/v1/appraisals/:id",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": {
+          "id": "1",
+          "type": "appraisals",
+          "attributes": {
+            "checked": true,
+            "description": "Good Job!!!",
+            "result-detail": {
+              "indicator": "Good",
+              "helper": "mada@example.com",
+              "manager": "mada@example.com",
+              "checked-at": "2016-12-28T08:33:36.827Z",
+              "approved-at": "2016-12-29T08:15:33.168Z"
+            }
+          }
+        }
+      }
+    }
+  ],
   "areas#index":[
     { 
       "verb": "GET",
@@ -31,11 +166,17 @@
       "page": 1,
       "response_data": {
         "data": [
-          { 
-            "id": "1",
+          {
+            "id": "2",
             "type": "areas",
-            "attributes":
-            {
+            "attributes": {
+              "name": "Toilet"
+            }
+          },
+          {
+            "id": "3",
+            "type": "areas",
+            "attributes": {
               "name": "Meeting room"
             }
           }
@@ -61,26 +202,25 @@
             "name": "Toilet",
             "item-list": [
               {
-                "id": 3,
+                "id": 1,
                 "name": "Full drain",
                 "times": [
                   {
                     "id": 1,
-                    "time": "9.00",
-                    "appraisals": [
-                      {
-                        "id": 5,
-                        "item-time-id": 1,
-                        "indicator-id": 2,
-                        "description": null,
-                        "checked": true,
-                        "manager-id": null,
-                        "helper-id": 1,
-                        "indicator": "Good",
-                        "checked-at": "2016-12-28",
-                        "reviewed-at": "2016-12-28"
-                      }
-                    ]
+                    "time": "14.00",
+                    "appraisals": {
+                      "id": 1,
+                      "item-time-id": 1,
+                      "indicator-id": 1,
+                      "description": "Great job!",
+                      "checked": true,
+                      "manager-id": 1,
+                      "helper-id": 1,
+                      "indicator-code": "A",
+                      "indicator-description": "Great",
+                      "checked-at": "2016-12-28",
+                      "reviewed-at": "2016-12-28"
+                    }
                   }
                 ]
               }
@@ -130,26 +270,25 @@
             "name": "Toilet",
             "item-list": [
               {
-                "id": 3,
+                "id": 1,
                 "name": "Full drain",
                 "times": [
                   {
                     "id": 1,
                     "time": "9.00",
-                    "appraisals": [
-                      {
-                        "id": 5,
-                        "item-time-id": 1,
-                        "indicator-id": 2,
-                        "description": null,
-                        "checked": true,
-                        "manager-id": null,
-                        "helper-id": 1,
-                        "indicator": "Good",
-                        "checked-at": "2016-12-28",
-                        "reviewed-at": "2016-12-28"
-                      }
-                    ]
+                    "appraisals": {
+                      "id": 10,
+                      "item-time-id": 2,
+                      "indicator-id": 1,
+                      "description": "Great Job!",
+                      "checked": true,
+                      "manager-id": 1,
+                      "helper-id": 1,
+                      "indicator-code": "A",
+                      "indicator-description": "Great",
+                      "checked-at": "2016-12-29",
+                      "reviewed-at": "2016-12-29"
+                    }
                   }
                 ]
               }
