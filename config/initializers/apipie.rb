@@ -1,3 +1,6 @@
+# this is for solving issue with apipie hash validation
+require 'apipie_custom_validator'
+
 Apipie.configure do |config|
   config.app_name                = "Obcheck"
   config.api_base_url            = "/api/v1"
@@ -6,5 +9,3 @@ Apipie.configure do |config|
   # where is your API defined?
   config.api_controllers_matcher = File.join(Rails.root, "app", "controllers", "api", "v1", "**","*.rb")
 end
-
-require 'apipie_custom_validator'

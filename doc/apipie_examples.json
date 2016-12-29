@@ -20,6 +20,28 @@
     }
   ],
 
+  // user_registration_controller
+  "user_registration#register_user":[
+    { 
+      "verb": "POST",
+      "path": "/api/v1/register_user",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozfQ.CEt7Zys5blPgTZ5ACgukBCzaTbjlFJhlx_N1jACRcFI",
+        "user": {
+          "id": 1,
+          "email": "manager@example.com",
+          "role": "manager"
+        }
+      }
+    }
+  ],
+
   // appraisals_controller
   "appraisals#index":[
     { 
@@ -154,6 +176,8 @@
       }
     }
   ],
+
+  // areas_controllers
   "areas#index":[
     { 
       "verb": "GET",
@@ -293,6 +317,315 @@
                 ]
               }
             ]
+          }
+        }
+      }
+    }
+  ],
+
+  // items_controllers
+  "items#index":[
+    { 
+      "verb": "GET",
+      "path": "/api/v1/areas/:area_id/items",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": [
+          {
+            "id": "1",
+            "type": "items",
+            "attributes": {
+              "name": "Wall",
+              "times": []
+            }
+          },
+          {
+            "id": "2",
+            "type": "items",
+            "attributes": {
+              "name": "Full drain",
+              "times": [
+                {
+                  "id": 1,
+                  "time": "9.00"
+                },
+                {
+                  "id": 2,
+                  "time": "14.00"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "items#show":[
+    {
+      "verb": "GET",
+      "path": "/api/v1/items/:id",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": {
+          "id": "3",
+          "type": "items",
+          "attributes": {
+            "name": "Full drain",
+            "times": [
+              {
+                "id": 1,
+                "time": "9.00"
+              },
+              {
+                "id": 2,
+                "time": "14.00"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "items#create":[
+    {
+      "verb": "POST",
+      "path": "/api/v1/items",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+       "data": {
+          "id": "3",
+          "type": "items",
+          "attributes": {
+            "name": "Window",
+            "times": [
+              {
+                "id": 1,
+                "time": "09.00"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "items#update":[
+    {
+      "verb": "PATCH/PUT",
+      "path": "/api/v1/items/:id",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": {
+          "id": "3",
+          "type": "items",
+          "attributes": {
+            "name": "Window",
+            "times": [
+              {
+                "id": 1,
+                "time": "08.00"
+              },
+              {
+                "id": 2,
+                "time": "11.00"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+
+  // indicators_controller
+  "indicators#index":[
+    { 
+      "verb": "GET",
+      "path": "/api/v1/indicators",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": [
+          {
+            "id": "1",
+            "type": "indicators",
+            "attributes": {
+              "code": "A",
+              "description": "Great"
+            }
+          },
+          {
+            "id": "2",
+            "type": "indicators",
+            "attributes": {
+              "code": "B",
+              "description": "Good"
+            }
+          }
+        ]
+      }
+    }
+  ],
+
+  // roles_controller
+  "roles#index":[
+    { 
+      "verb": "GET",
+      "path": "/api/v1/roles",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": [
+          {
+            "id": "1",
+            "type": "roles",
+            "attributes": {
+              "name": "manager"
+            }
+          },
+          {
+            "id": "2",
+            "type": "roles",
+            "attributes": {
+              "name": "helper"
+            }
+          }
+        ]
+      }
+    }
+
+  ],
+
+  // users_controller
+  "users#index":[
+    { 
+      "verb": "GET",
+      "path": "/api/v1/users",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": [
+          {
+            "id": "1",
+            "type": "users",
+            "attributes": {
+              "company-id": 1,
+              "email": "manager@example.com",
+              "role-id": 1,
+              "role": "manager"
+            }
+          },
+          {
+            "id": "2",
+            "type": "users",
+            "attributes": {
+              "company-id": 1,
+              "email": "ob@example.com",
+              "role-id": 2,
+              "role": "helper"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "users#show":[
+    { 
+      "verb": "GET",
+      "path": "/api/v1/users/:id",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": {
+          "id": "1",
+          "type": "users",
+          "attributes": {
+            "company-id": 1,
+            "email": "manager@example.com",
+            "role-id": 1,
+            "role": "manager"
+          }
+        }
+      }
+    }
+  ],
+  "users#create":[
+    { 
+      "verb": "POST",
+      "path": "/api/v1/users",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": {
+          "id": "1",
+          "type": "users",
+          "attributes": {
+            "company-id": 1,
+            "email": "manager@example.com",
+            "role-id": 1,
+            "role": "manager"
+          }
+        }
+      }
+    }
+  ],
+  "users#update":[
+    { 
+      "verb": "PATCH/PUT",
+      "path": "/api/v1/users/:id",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": {
+          "id": "1",
+          "type": "users",
+          "attributes": {
+            "company-id": 1,
+            "email": "manager@example.com",
+            "role-id": 1,
+            "role": "manager"
           }
         }
       }

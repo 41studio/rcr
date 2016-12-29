@@ -10,7 +10,7 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
       param :description, String, desc: "Description of the appraisal"
       param :checked, String, desc: "Checked of the appraisal"
       param :item_time_id, String, desc: "Item time ID of the appraisal"
-      param :indicator_id, String, desc: "Indicator ID of the appraisal"
+      param :indicator_id, String, desc: "Indicator ID of the appraisal", required: true
       param :manager_id, String, desc: "Manager ID of the appraisal"
       param :helper_id, String, desc: "Helper ID of the appraisal"
     end
@@ -84,20 +84,20 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
     def check_existing_appraisal
       appraisals = ItemTime.find(appraisal_params[:item_time_id]).appraisals.by_day(Date.today)
 
-      if appraisals.present?
+      if appraisals.exists?
         render json: {errors: ['Appraisal already exist']}, status: :unprocessable_entity
       end
     end
 
     def authenticate_manager!
       unless @current_user.is_manager?
-        render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+        render json: { errors: ['Not Authenticated, for manager role only'] }, status: :unauthorized
       end
     end
     
     def authenticate_helper!
       unless @current_user.is_helper?
-        render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+        render json: { errors: ['Not Authenticated, for helper role only'] }, status: :unauthorized
       end
     end
 

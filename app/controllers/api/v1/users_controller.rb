@@ -12,7 +12,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   # GET /api/v1/users
-  api :GET, "/users", "Get list of users"
+  api :GET, "/users", "Get list of users based on current user's company"
   header 'Authentication', "User auth token"
   formats ['json']
   def index
