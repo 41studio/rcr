@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161229035354) do
+ActiveRecord::Schema.define(version: 20161229071825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,10 +52,8 @@ ActiveRecord::Schema.define(version: 20161229035354) do
   create_table "item_times", force: :cascade do |t|
     t.integer  "item_id"
     t.string   "time"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "appraisal_id"
-    t.index ["appraisal_id"], name: "index_item_times_on_appraisal_id", using: :btree
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_item_times_on_item_id", using: :btree
   end
 
@@ -102,7 +100,6 @@ ActiveRecord::Schema.define(version: 20161229035354) do
   end
 
   add_foreign_key "areas", "companies", on_delete: :cascade
-  add_foreign_key "item_times", "appraisals"
   add_foreign_key "item_times", "items", on_delete: :cascade
   add_foreign_key "items", "areas", on_delete: :cascade
   add_foreign_key "users", "companies", on_delete: :cascade

@@ -1,6 +1,7 @@
 class Api::V1::AppraisalsController < Api::V1::ApiController
   before_action :authenticate_request!
   before_action :set_appraisal, only: [:show, :update, :destroy]
+  before_action :check_existing_appraisal, only: [:create]
 
   def_param_group :appraisal  do
     param :appraisal, Hash do
@@ -75,6 +76,16 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
   def destroy
     @appraisal.destroy
   end
+
+  protected
+
+    def check_existing_appraisal
+      appraisals = ItemTime.find(appraisal_params[:item_time_id]).appraisals.by_day(Date.today)
+
+      if appraisals.present?
+        render json: {errors: ['Appraisal already exist']}, status: :unprocessable_entity
+      end
+    end
 
   private
     # Use callbacks to share common setup or constraints between actions.
