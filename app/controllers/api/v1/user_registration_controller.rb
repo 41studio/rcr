@@ -4,7 +4,7 @@ class Api::V1::UserRegistrationController < Api::V1::ApiController
     param :user, Hash do 
       param :email, String, desc: "Email of the user", required: true
       param :password, String, desc: "Password of the user", required: true
-      param :name, String, desc: "Name of the user", required: true
+      param :name, String, desc: "Name of the user"
       param :password_confirmation, String, desc: "Password confirmation of the user", required: true
     end
   end

@@ -5,7 +5,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   def_param_group :user  do
     param :user, Hash do 
       param :email, String, desc: "Email of the user", required: true
-      param :name, String, desc: "Name of the user", required: true
+      param :name, String, desc: "Name of the user"
       param :password, String, desc: "Password of the user", required: true
       param :password_confirmation, String, desc: "Password confirmation of the user", required: true
       param :role_id, String, desc: "Role of the user", required: true
