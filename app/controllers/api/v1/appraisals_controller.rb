@@ -37,10 +37,10 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
 
   # POST /api/v1/appraisals
   # This is for helper role only
-  api :POST, "/appraisals/:id", "Post a new appraisal"
-  header 'Authentication', "User auth token"
-  param_group :appraisal
-  formats ['json']
+  # api :POST, "/appraisals/:id", "Post a new appraisal"
+  # header 'Authentication', "User auth token"
+  # param_group :appraisal
+  # formats ['json']
   def create
     @appraisal = Appraisal.new(appraisal_params)
     @appraisal.helper_id = @current_user.id
@@ -71,10 +71,10 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
   end
 
   # DELETE /appraisals/1
-  api :DELETE, "/appraisals/:id", "Delete appraisal"
-  header 'Authentication', "User auth token"
-  param :id, String, required: true, desc: "Appraisal ID"
-  formats ['json']
+  # api :DELETE, "/appraisals/:id", "Delete appraisal"
+  # header 'Authentication', "User auth token"
+  # param :id, String, required: true, desc: "Appraisal ID"
+  # formats ['json']
   def destroy
     @appraisal.destroy
   end
