@@ -7,10 +7,14 @@ class Api::V1::ApiAuthenticationController < Api::V1::ApiController
   formats ['json']
   def authenticate_user
     user = User.find_for_database_authentication(email: params[:email])
-    if user.valid_password?(params[:password])
-      render json: payload(user)
+    if user
+      if user.valid_password?(params[:password])
+        render json: payload(user)
+      else
+        render json: {errors: ['Invalid Password']}, status: :unauthorized
+      end
     else
-      render json: {errors: ['Invalid Username/Password']}, status: :unauthorized
+      render json: {errors: ['Email not found']}, status: :unauthorized
     end
   end
 
