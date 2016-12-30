@@ -4,7 +4,7 @@ class Api::V1::RolesController < Api::V1::ApiController
   header 'Authentication', "User auth token"
   formats ['json']
   def index
-    roles = Role.select(:name, :id)
+    roles = Role.select(:name, :id).where.not(name: "owner")
 
     render json: roles
   end

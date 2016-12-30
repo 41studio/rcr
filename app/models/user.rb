@@ -14,4 +14,9 @@ class User < ApplicationRecord
   def is_helper?
     role.name.eql?("helper")
   end
+
+  def is_owner?
+    role.name.eql?("helper")
+  end
+
 end

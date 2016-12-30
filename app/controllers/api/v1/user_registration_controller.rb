@@ -4,8 +4,8 @@ class Api::V1::UserRegistrationController < Api::V1::ApiController
     param :user, Hash do 
       param :email, String, desc: "Email of the user", required: true
       param :password, String, desc: "Password of the user", required: true
+      param :name, String, desc: "Name of the user", required: true
       param :password_confirmation, String, desc: "Password confirmation of the user", required: true
-      param :role_id, String, desc: "Role of the user", required: true
     end
   end
   
@@ -15,7 +15,9 @@ class Api::V1::UserRegistrationController < Api::V1::ApiController
   param :company, String, required: true, desc: "Company of the user"
   formats ['json']
   def register_user
+    owner_role = Role.find_by_name("owner")
     user = User.new(user_params)
+    user.role_id = owner_role.id
     user.build_company(name: params[:company])
 
     if user.save
@@ -31,13 +33,13 @@ class Api::V1::UserRegistrationController < Api::V1::ApiController
     return nil unless user and user.id
     {
       auth_token: JsonWebToken.encode({user_id: user.id}),
-      user: {id: user.id, email: user.email, role: user.role.try(:name)}
+      user: {id: user.id, email: user.email, role: user.role.try(:name), name: user.name}
     }
   end
 
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :role_id)
+    params.require(:user).permit(:email, :password, :password_confirmation, :name)
   end
   
 end
