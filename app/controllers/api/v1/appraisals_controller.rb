@@ -55,12 +55,12 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
 
   # PATCH/PUT /api/v1/appraisals/1
   # This is for manager level only
-  api :PATCH, "/appraisals/:id", "Update appraisal"
-  api :PUT, "/appraisals/:id", "Update appraisal"
-  header 'Authentication', "User auth token"
-  param :id, String, required: true, desc: "Appraisal ID"
-  param_group :appraisal
-  formats ['json']
+  # api :PATCH, "/appraisals/:id", "Update appraisal"
+  # api :PUT, "/appraisals/:id", "Update appraisal"
+  # header 'Authentication', "User auth token"
+  # param :id, String, required: true, desc: "Appraisal ID"
+  # param_group :appraisal
+  # formats ['json']
   def update
     @appraisal.manager_id = @current_user.id
     if @appraisal.update(appraisal_params)
