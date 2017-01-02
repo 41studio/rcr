@@ -88,16 +88,16 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
         render json: {errors: ['Appraisal already exist']}, status: :unprocessable_entity
       end
     end
-
-    def authenticate_manager!
-      unless @current_user.is_manager?
-        render json: { errors: ['Not Authenticated, for manager role only'] }, status: :unauthorized
-      end
-    end
     
     def authenticate_helper!
       unless @current_user.is_helper?
-        render json: { errors: ['Not Authenticated, for helper role only'] }, status: :unauthorized
+        render json: { errors: ['Not authorized, for helper role only'] }, status: :unauthorized
+      end
+    end
+
+    def authenticate_manager!
+      unless @current_user.is_manager?
+        render json: { errors: ['Not authorized, for manager role only'] }, status: :unauthorized
       end
     end
 
