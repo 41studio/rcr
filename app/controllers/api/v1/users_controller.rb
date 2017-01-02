@@ -60,6 +60,10 @@ class Api::V1::UsersController < Api::V1::ApiController
       if (@user.is_manager? || @user.is_owner?) && @current_user != @user
         render json: { errors: ["Not authorized, you can't update owner or another manager"] }, status: :unauthorized and return
       end
+    elsif @current_user.is_helper?
+      unless @current_user.eql?(@user)
+        render json: { errors: ["Not authorized, you only can update yourself"] }, status: :unauthorized and return
+      end
     end
 
     if @user.update(user_params)
