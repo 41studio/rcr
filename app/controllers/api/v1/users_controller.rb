@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::ApiController
   before_action :authenticate_request!
-  before_action :authenticate_owner_or_manager!, only: [:index, :update, :destroy]
+  before_action :authenticate_owner_or_manager!, only: [:index, :destroy]
   before_action :set_user, only: [:show, :update, :destroy]
 
   def_param_group :user  do
