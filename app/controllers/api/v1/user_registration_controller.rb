@@ -23,7 +23,7 @@ class Api::V1::UserRegistrationController < Api::V1::ApiController
     if user.save
       render json: payload(user)
     else
-      render json: {errors: user.errors}, status: :unauthorized
+      render json: { statusCode: 401, errors: user.errors.full_messages.join(", ") }, status: :unauthorized
     end
   end
 
