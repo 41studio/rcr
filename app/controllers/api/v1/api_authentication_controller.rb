@@ -11,10 +11,10 @@ class Api::V1::ApiAuthenticationController < Api::V1::ApiController
       if user.valid_password?(params[:password])
         render json: payload(user)
       else
-        render json: {errors: ['Invalid Password']}, status: :unauthorized
+        render json: {errors: 'Invalid Password'}, status: :unauthorized
       end
     else
-      render json: {errors: ['Email not found']}, status: :unauthorized
+      render json: {errors: 'Email not found'}, status: :unauthorized
     end
   end
 
