@@ -23,7 +23,7 @@ class Api::V1::UserRegistrationController < Api::V1::ApiController
     if user.save
       render json: payload(user)
     else
-      render json: { statusCode: 401, errors: user.errors.full_messages.join(", ") }, status: :unauthorized
+      render json: { error: user.errors.full_messages.join(", ") }, status: :unauthorized
     end
   end
 
@@ -33,7 +33,7 @@ class Api::V1::UserRegistrationController < Api::V1::ApiController
     return nil unless user and user.id
     {
       auth_token: JsonWebToken.encode({user_id: user.id}),
-      user: {id: user.id, email: user.email, role: user.role.try(:name), name: user.name}
+      user: { id: user.id, email: user.email, role: user.role.try(:name), name: user.name }
     }
   end
 

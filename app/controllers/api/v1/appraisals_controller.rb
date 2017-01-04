@@ -3,7 +3,7 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
   before_action :authenticate_manager!, only: [:update]
   before_action :authenticate_helper!,  only: [:create]
   before_action :set_appraisal, only: [:show, :update, :destroy]
-  before_action :check_existing_appraisal, only: [:create]
+  # before_action :check_existing_appraisal, only: [:create]
 
   def_param_group :appraisal  do
     param :appraisal, Hash do
@@ -49,7 +49,7 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
     if @appraisal.save
       render json: @appraisal, status: :created
     else
-      render json: @appraisal.errors, status: :unprocessable_entity
+      render json: { error: @appraisal.errors.full_messages.join(", ") }, status: :unprocessable_entity
     end
   end
 
@@ -66,7 +66,7 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
     if @appraisal.update(appraisal_params)
       render json: @appraisal
     else
-      render json: @appraisal.errors, status: :unprocessable_entity
+      render json: { error: @appraisal.errors.full_messages.join(", ") }, status: :unprocessable_entity
     end
   end
 
@@ -85,19 +85,19 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
       appraisals = ItemTime.find(appraisal_params[:item_time_id]).appraisals.by_day(Date.today)
 
       if appraisals.exists?
-        render json: {errors: ['Appraisal already exist']}, status: :unprocessable_entity
+        render json: { error: 'Appraisal already exist' }, status: :unprocessable_entity
       end
     end
     
     def authenticate_helper!
       unless @current_user.is_helper?
-        render json: { errors: ['Not authorized, for helper role only'] }, status: :unauthorized
+        render json: { error: 'Not authorized, for helper role only' }, status: :unauthorized
       end
     end
 
     def authenticate_manager!
       unless @current_user.is_manager?
-        render json: { errors: ['Not authorized, for manager role only'] }, status: :unauthorized
+        render json: { error: 'Not authorized, for manager role only' }, status: :unauthorized
       end
     end
 

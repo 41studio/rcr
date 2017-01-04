@@ -43,7 +43,7 @@ class Api::V1::AreasController < Api::V1::ApiController
     if @area.save
       render json: @area, status: :created
     else
-      render json: @area.errors, status: :unprocessable_entity
+      render json: { error: @area.errors.full_messages.join(", ") }, status: :unprocessable_entity
     end
   end
 
@@ -58,7 +58,7 @@ class Api::V1::AreasController < Api::V1::ApiController
     if @area.update(area_params)
       render json: @area
     else
-      render json: @area.errors, status: :unprocessable_entity
+      render json: { error: @area.errors.full_messages.join(", ") }, status: :unprocessable_entity
     end
   end
 

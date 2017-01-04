@@ -51,7 +51,7 @@ class Api::V1::ItemsController < Api::V1::ApiController
     if @item.save
       render json: @item, status: :created
     else
-      render json: @item.errors, status: :unprocessable_entity
+      render json: { error: @item.errors.full_messages.join(", ") }, status: :unprocessable_entity
     end
   end
 
@@ -67,7 +67,7 @@ class Api::V1::ItemsController < Api::V1::ApiController
     if @item.update(item_params)
       render json: @item
     else
-      render json: @item.errors, status: :unprocessable_entity
+      render json: { error: @item.errors.full_messages.join(", ") }, status: :unprocessable_entity
     end
   end
 

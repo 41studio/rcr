@@ -11,10 +11,10 @@ class Api::V1::ApiAuthenticationController < Api::V1::ApiController
       if user.valid_password?(params[:password])
         render json: payload(user)
       else
-        render json: {errors: 'Invalid Password'}, status: :unauthorized
+        render json: { error: 'Invalid Password' }, status: :unauthorized
       end
     else
-      render json: {errors: 'Email not found'}, status: :unauthorized
+      render json: { error: 'Email not found' }, status: :unauthorized
     end
   end
 
@@ -24,7 +24,7 @@ class Api::V1::ApiAuthenticationController < Api::V1::ApiController
     return nil unless user and user.id
     {
       auth_token: JsonWebToken.encode({user_id: user.id}),
-      user: {id: user.id, email: user.email, role: user.role.try(:name), name: user.name}
+      user: { id: user.id, email: user.email, role: user.role.try(:name), name: user.name }
     }
   end
 end

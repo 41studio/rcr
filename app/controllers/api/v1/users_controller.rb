@@ -44,7 +44,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     if @user.save
       render json: @user, status: :created
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { error: @user.errors.full_messages.join(", ") }, status: :unprocessable_entity
     end
   end
 
@@ -58,18 +58,18 @@ class Api::V1::UsersController < Api::V1::ApiController
   def update
     if @current_user.is_manager?
       if (@user.is_manager? || @user.is_owner?) && @current_user != @user
-        render json: { errors: ["Not authorized, you can't update owner or another manager"] }, status: :unauthorized and return
+        render json: { error: "Not authorized, you can't update owner or another manager" }, status: :unauthorized and return
       end
     elsif @current_user.is_helper?
       unless @current_user.eql?(@user)
-        render json: { errors: ["Not authorized, you only can update yourself"] }, status: :unauthorized and return
+        render json: { error: "Not authorized, you only can update yourself" }, status: :unauthorized and return
       end
     end
 
     if @user.update(user_params)
       render json: @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { error: @user.errors.full_messages.join(", ") }, status: :unprocessable_entity
     end
   end
 
@@ -80,10 +80,10 @@ class Api::V1::UsersController < Api::V1::ApiController
   formats ['json']
   def destroy
     if @current_user.eql?(@user)
-      render json: { errors: ["Not authorized, you can't delete yourself "] }, status: :unauthorized and return
+      render json: { error: "Not authorized, you can't delete yourself " }, status: :unauthorized and return
       
     elsif @current_user.is_manager? && (@user.is_manager? || @user.is_owner?)
-      render json: { errors: ["Not authorized, you can't delete owner or another manager "] }, status: :unauthorized and return
+      render json: { error: "Not authorized, you can't delete owner or another manager " }, status: :unauthorized and return
     
     end
 
@@ -96,7 +96,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
     def authenticate_owner_or_manager!
       unless @current_user.is_owner? || @current_user.is_manager?
-        render json: { errors: ['Not authorized, for owner and manager role only'] }, status: :unauthorized
+        render json: { error: 'Not authorized, for owner and manager role only' }, status: :unauthorized
       end
     end
 
