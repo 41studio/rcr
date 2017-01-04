@@ -3,7 +3,7 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
   before_action :authenticate_manager!, only: [:update]
   before_action :authenticate_helper!,  only: [:create]
   before_action :set_appraisal, only: [:show, :update, :destroy]
-  # before_action :check_existing_appraisal, only: [:create]
+  before_action :check_existing_appraisal, only: [:create]
 
   def_param_group :appraisal  do
     param :appraisal, Hash do
