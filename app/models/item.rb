@@ -2,4 +2,16 @@ class Item < ApplicationRecord
   belongs_to :area
   has_many :item_times
   accepts_nested_attributes_for :item_times, allow_destroy: true
+
+  validate :check_duplicate_times
+
+  private 
+
+    def check_duplicate_times
+      times = self.item_times.map(&:time)
+
+      unless times.uniq.count.eql? times.count
+        errors.add(:item_times, "have duplicate times")
+      end
+    end
 end
