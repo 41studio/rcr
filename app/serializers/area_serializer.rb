@@ -8,7 +8,7 @@ class AreaSerializer < ActiveModel::Serializer
       item_times_area = []
       item_area = { id: item.id, name: item.name }
       
-      item.item_times.each do |item_time|
+      item.item_times.order(:time).each do |item_time|
         # appraisal_items = []
         item_area_member = { id: item_time.id, time: item_time.time.strftime("%H:%M") }
 
