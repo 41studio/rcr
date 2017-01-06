@@ -92,14 +92,6 @@ class Api::V1::UsersController < Api::V1::ApiController
     render json: { success: "User successfully deleted" }, status: :ok
   end
 
-  protected
-
-    def authenticate_owner_or_manager!
-      unless @current_user.is_owner? || @current_user.is_manager?
-        render json: { error: 'Not authorized, for owner and manager role only' }, status: :unauthorized
-      end
-    end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

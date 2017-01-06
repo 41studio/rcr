@@ -1,6 +1,6 @@
 class Api::V1::AppraisalsController < Api::V1::ApiController
   before_action :authenticate_request!
-  before_action :authenticate_manager!, only: [:update]
+  before_action :authenticate_owner_or_manager!, only: [:update]
   before_action :authenticate_helper!,  only: [:create]
   before_action :set_appraisal, only: [:show, :update, :destroy]
   before_action :check_existing_appraisal, only: [:create]
@@ -92,12 +92,6 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
     def authenticate_helper!
       unless @current_user.is_helper?
         render json: { error: 'Not authorized, for helper role only' }, status: :unauthorized
-      end
-    end
-
-    def authenticate_manager!
-      unless @current_user.is_manager?
-        render json: { error: 'Not authorized, for manager role only' }, status: :unauthorized
       end
     end
 

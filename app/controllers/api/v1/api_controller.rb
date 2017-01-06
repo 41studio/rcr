@@ -12,6 +12,12 @@ class Api::V1::ApiController < ActionController::API
     render json: { error: 'Not Authenticated' }, status: :unauthorized
   end
 
+  def authenticate_owner_or_manager!
+    unless @current_user.is_owner? || @current_user.is_manager?
+      render json: { error: 'Not authorized, for owner and manager role only' }, status: :unauthorized
+    end
+  end
+
   private
   def http_token
     @http_token ||= if request.headers['Authorization'].present?
