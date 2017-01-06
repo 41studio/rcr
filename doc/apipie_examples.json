@@ -523,6 +523,38 @@
   ],
 
   // users_controller
+  "users#invite":[
+    { 
+      "verb": "POST",
+      "path": "/api/v1/users/invite",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "success": "successfully sent invite to ervinarukii@gmail.com",
+        "user": {
+          "id": 2,
+          "company_id": null,
+          "email": "new_ob@example.com",
+          "created_at": "2017-01-06T10:27:24.906Z",
+          "updated_at": "2017-01-06T10:27:24.906Z",
+          "role_id": null,
+          "name": null,
+          "invitation_token": "53941081b87e6b999e124225f3a0fbb9c4a4a0ec79102fa08cb82be9bcdfxxxx",
+          "invitation_created_at": "2017-01-06T10:27:24.905Z",
+          "invitation_sent_at": "2017-01-06T10:27:24.706Z",
+          "invitation_accepted_at": null,
+          "invitation_limit": null,
+          "invited_by_type": null,
+          "invited_by_id": null,
+          "invitations_count": 0
+        }
+      }
+    }
+  ],
   "users#index":[
     { 
       "verb": "GET",
