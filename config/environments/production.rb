@@ -74,5 +74,20 @@ Rails.application.configure do
   end
 
   # Do not dump schema after migrations.
-  config.active_record.dump_schema_after_migration = false
+  config.active_record.dump_schema_after_migration = false  # Do not dump schema after migrations.
+
+  config.action_mailer.default_url_options = { :host => 'room-cleanliness-ratings.herokuapp.com' }
+
+  config.action_mailer.delivery_method = :smtp
+
+  # using sendgrid
+  config.action_mailer.smtp_settings = {
+    :address              => ENV["SMTP_ADDRESS"],
+    :port                 => ENV["SMTP_PORT"],
+    :user_name            => ENV["SMTP_USERNAME"],
+    :password             => ENV["SMTP_PASSWORD"],
+    :domain               => 'gmail.com',
+    :authentication       => :plain,
+    :enable_starttls_auto => true
+  }
 end

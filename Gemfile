@@ -9,6 +9,7 @@ gem 'pg'
 gem 'puma', '~> 3.0'
 
 gem 'devise'
+gem 'devise_invitable'
 gem 'jwt'
 gem 'rack-cors'
 gem 'active_model_serializers', '~> 0.10.0'

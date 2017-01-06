@@ -13,6 +13,34 @@ class Api::V1::UsersController < Api::V1::ApiController
     end
   end
 
+
+  # POST /api/v1/users/invite
+  api :POST, "/users/invite", "Invite user by email"
+  header 'Authentication', "User auth token"
+  param :email, String, desc: "Email that will be invited", required: true
+  formats ['json']
+  def invite
+    user = User.find_by_email(params[:email])
+
+    unless user.present?
+      user = User.invite!(email: params[:email]) do |u|
+        u.skip_invitation    = true
+        u.invitation_sent_at = Time.now.utc
+      end
+      
+      if user.errors.any?
+        render json: { error: user.errors.full_messages.join(", ") } and return
+      end
+      
+      InvitableMailer.invite_user(user, request.base_url).deliver
+
+      render json: { success: "successfully sent invite to #{user.email}", user: user }
+    else
+      
+      render json: { error: "The email address is already registered" }
+    end
+  end
+
   # GET /api/v1/users
   api :GET, "/users", "Get list of users based on current user's company"
   header 'Authentication', "User auth token"

@@ -6,12 +6,19 @@ Rails.application.routes.draw do
   
   namespace :api do
     namespace :v1 do 
-      resources :appraisals, :users
+      resources :appraisals
       resources :indicators, only: :index
       resources :companies, only: [:show, :update]
       resources :roles, only: [:index]
+      
       resources :areas do
         resources :items 
+      end
+
+      resources :users do
+        collection do 
+          post "/invite" => "users#invite"
+        end
       end
     end
   end
