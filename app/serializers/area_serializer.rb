@@ -10,7 +10,7 @@ class AreaSerializer < ActiveModel::Serializer
       
       item.item_times.each do |item_time|
         # appraisal_items = []
-        item_area_member = { id: item_time.id, time: item_time.time }
+        item_area_member = { id: item_time.id, time: item_time.time.strftime("%H:%M") }
 
         # item_time.appraisals.includes(:indicator).by_day(object.search_date).each do |appraisal|
         #   indicator = appraisal.indicator
