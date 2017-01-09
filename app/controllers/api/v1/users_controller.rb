@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::ApiController
-  before_action :authenticate_request!
+  before_action :authenticate_request!, except: [:accept, :accept_invitation]
   before_action :authenticate_owner_or_manager!, only: [:index, :destroy]
   before_action :set_user, only: [:show, :update, :destroy]
 
@@ -21,6 +21,8 @@ class Api::V1::UsersController < Api::V1::ApiController
     end
   end
 
+  # ===================== Invitation part ============================
+
   # POST /api/v1/users/invite
   api :POST, "/users/invite", "Invite user by email"
   header 'Authentication', "User auth token"
@@ -38,12 +40,31 @@ class Api::V1::UsersController < Api::V1::ApiController
       
       InvitableMailer.invite_user(user, request.base_url).deliver
 
-      render json: { success: "successfully sent invite to #{user.email}", user: user }
+      render json: { success: "An invitation email has been sent to #{user.email}", user: user }
     else
       
       render json: { error: "The email address is already registered" }
     end
   end
+
+  # PUT /api/v1/users/accept_invitation
+  api :PUT, "/users/accept_invitation", "Accept and register user"
+  param :invitation_token, String, desc: "Email of the user", required: true
+  param_group :user
+  formats ['json']
+  def accept_invitation
+    user = User.find_by_invitation_token(params[:invitation_token], true)
+
+    unless user.present?
+      render json: { error: "The invitation token provided is not valid!" } and return
+    end
+
+    user = User.accept_invitation!(user_params.merge(invitation_token: params[:invitation_token]))
+
+    render json: { success: "Your password was set successfully. You are now signed in.", user: user }
+  end
+
+  # ===================== Invitation part end ============================
 
   # GET /api/v1/users
   api :GET, "/users", "Get list of users based on current user's company"

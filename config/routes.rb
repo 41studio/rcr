@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :users do
         collection do 
           post "/invite" => "users#invite"
+          put  "/accept_invitation" => "users#accept_invitation"
         end
       end
     end
