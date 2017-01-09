@@ -50,7 +50,10 @@ class Api::V1::UsersController < Api::V1::ApiController
   # PUT /api/v1/users/accept_invitation
   api :PUT, "/users/accept_invitation", "Accept and register user"
   param :invitation_token, String, desc: "Email of the user", required: true
-  param_group :user
+  param :user, Hash do 
+    param :password, String, desc: "Password of the user"
+    param :password_confirmation, String, desc: "Password confirmation of the user"
+  end
   formats ['json']
   def accept_invitation
     user = User.find_by_invitation_token(params[:invitation_token], true)

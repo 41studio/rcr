@@ -557,7 +557,7 @@
   ],
   "users#accept_invitation":[
     { 
-      "verb": "POST",
+      "verb": "PUT",
       "path": "/api/v1/users/accept_invitation",
       "query": null,
       "code": 200,
