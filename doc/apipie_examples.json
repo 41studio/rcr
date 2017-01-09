@@ -566,23 +566,12 @@
       "request_data": null,
       "page": 1,
       "response_data": {
-        "success": "Your password was set successfully. You are now signed in.",
+        "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozNX0.U33AuUIO-MBoftHpGD_sFSpq2cAyE3Qes_Awy2HYBIA",
         "user": {
-          "invitation_token": null,
-          "invitation_created_at": "2017-01-09T07:31:53.115Z",
+          "id": 35,
           "email": "new_user@example.com",
-          "name": "New User",
-          "role_id": 1,
-          "invitation_accepted_at": "2017-01-09T07:32:10.161Z",
-          "id": 2,
-          "company_id": 1,
-          "created_at": "2017-01-09T07:31:53.116Z",
-          "updated_at": "2017-01-09T07:32:10.162Z",
-          "invitation_sent_at": "2017-01-09T07:31:53.114Z",
-          "invitation_limit": null,
-          "invited_by_type": "User",
-          "invited_by_id": 1,
-          "invitations_count": 0
+          "role": "manager",
+          "name": "New User"
         }
       }
     }
