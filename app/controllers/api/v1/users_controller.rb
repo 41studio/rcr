@@ -35,7 +35,7 @@ class Api::V1::UsersController < Api::V1::ApiController
       user = User.invite(user_params, @current_user) # call class method `invite`
       
       if user.errors.any?
-        render json: { error: user.errors.full_messages.join(", ") } and return
+        render json: { error: user.errors.full_messages.join(", ") }, status: :unauthorized and return
       end
       
       InvitableMailer.invite_user(user, request.base_url).deliver
@@ -43,7 +43,7 @@ class Api::V1::UsersController < Api::V1::ApiController
       render json: { success: "An invitation email has been sent to #{user.email}", user: user }
     else
       
-      render json: { error: "The email address is already registered" }
+      render json: { error: "The email address is already been taken" }, status: :unauthorized
     end
   end
 
@@ -59,7 +59,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     user = User.find_by_invitation_token(params[:invitation_token], true)
 
     unless user.present?
-      render json: { error: "The invitation token provided is not valid!" } and return
+      render json: { error: "The invitation token provided is not valid!" }, status: :unauthorized and return
     end
 
     user = User.accept_invitation!(user_params.merge(invitation_token: params[:invitation_token]))
