@@ -26,6 +26,8 @@ class Api::V1::UsersController < Api::V1::ApiController
       user = User.invite!(email: params[:email]) do |u|
         u.skip_invitation    = true
         u.invitation_sent_at = Time.now.utc
+        u.invited_by_type    = "User"
+        u.invited_by_id      = @current_user.id
       end
       
       if user.errors.any?
