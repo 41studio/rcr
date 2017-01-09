@@ -19,4 +19,16 @@ class User < ApplicationRecord
     role.name.eql?("owner")
   end
 
+  def self.invite(user_params, current_user)
+    self.invite!(email: user_params[:email]) do |u|
+      u.name               = user_params[:name]
+      u.role_id            = user_params[:role_id]
+      u.company_id         = current_user.company_id
+      u.skip_invitation    = true
+      u.invitation_sent_at = Time.now.utc
+      u.invited_by_type    = "User"
+      u.invited_by_id      = current_user.id
+    end
+  end
+
 end

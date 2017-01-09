@@ -13,22 +13,24 @@ class Api::V1::UsersController < Api::V1::ApiController
     end
   end
 
+  def_param_group :user_without_password  do
+    param :user, Hash do 
+      param :email, String, desc: "Email of the user", required: true
+      param :name, String, desc: "Name of the user"
+      param :role_id, String, desc: "Role of the user", required: true
+    end
+  end
 
   # POST /api/v1/users/invite
   api :POST, "/users/invite", "Invite user by email"
   header 'Authentication', "User auth token"
-  param :email, String, desc: "Email that will be invited", required: true
+  param_group :user_without_password
   formats ['json']
   def invite
-    user = User.find_by_email(params[:email])
+    user = User.find_by_email(user_params[:email])
 
     unless user.present?
-      user = User.invite!(email: params[:email]) do |u|
-        u.skip_invitation    = true
-        u.invitation_sent_at = Time.now.utc
-        u.invited_by_type    = "User"
-        u.invited_by_id      = @current_user.id
-      end
+      user = User.invite(user_params, @current_user) # call class method `invite`
       
       if user.errors.any?
         render json: { error: user.errors.full_messages.join(", ") } and return
