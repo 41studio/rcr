@@ -17,14 +17,4 @@ class Api::V1::ApiAuthenticationController < Api::V1::ApiController
       render json: { error: 'Email not found' }, status: :unauthorized
     end
   end
-
-  private
-
-  def payload(user)
-    return nil unless user and user.id
-    {
-      auth_token: JsonWebToken.encode({user_id: user.id}),
-      user: { id: user.id, email: user.email, role: user.role.try(:name), name: user.name }
-    }
-  end
 end

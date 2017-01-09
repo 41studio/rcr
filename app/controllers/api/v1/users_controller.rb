@@ -64,7 +64,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
     user = User.accept_invitation!(user_params.merge(invitation_token: params[:invitation_token]))
 
-    render json: { success: "Your password was set successfully. You are now signed in.", user: user }
+    render json: payload(user)
   end
 
   # ===================== Invitation part end ============================

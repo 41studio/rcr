@@ -1,4 +1,6 @@
 class Api::V1::ApiController < ActionController::API
+  include Rails::Pagination
+  include ActionController::Serialization
   attr_reader :current_user
 
   protected
@@ -31,5 +33,13 @@ class Api::V1::ApiController < ActionController::API
 
   def user_id_in_token?
     http_token && auth_token && auth_token[:user_id].to_i
+  end
+
+  def payload(user)
+    return nil unless user and user.id
+    {
+      auth_token: JsonWebToken.encode({user_id: user.id}),
+      user: { id: user.id, email: user.email, role: user.role.try(:name), name: user.name }
+    }
   end
 end
