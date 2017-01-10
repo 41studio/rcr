@@ -15,7 +15,7 @@ class Api::V1::AreasController < Api::V1::ApiController
   formats ['json']
   def index
     company = Company.find(@current_user.company_id)
-    @areas = company.areas.page(params[:page]).per(2)
+    @areas = company.areas.page(params[:page]).per(10)
     
     render json: @areas, meta: pagination_dict(@areas), each_serializer: AreaListSerializer
   end
