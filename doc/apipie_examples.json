@@ -253,17 +253,17 @@
                       "reviewed-at": "2016-12-28"
                     }
                   }
-                ],
-                "meta": {
-                  "current-page": 2,
-                  "next-page": 3,
-                  "prev-page": 1,
-                  "total-pages": 3,
-                  "total-count": 26
-                }
+                ]
               }
             ]
           }
+        },
+        "meta": {
+          "current-page": 2,
+          "next-page": 3,
+          "prev-page": 1,
+          "total-pages": 3,
+          "total-count": 26
         }
       }
     }

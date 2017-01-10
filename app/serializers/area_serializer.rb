@@ -1,9 +1,5 @@
 class AreaSerializer < ActiveModel::Serializer
-  attributes :id, :name, :item_list, :meta
-
-  def meta
-    @instance_options[:context][:meta] if @instance_options[:context].present?
-  end
+  attributes :id, :name, :item_list
 
   def item_list
     item_list = []
@@ -37,7 +33,7 @@ class AreaSerializer < ActiveModel::Serializer
     end
 
     if @instance_options[:context].present?
-      Kaminari.paginate_array(item_list).page(@instance_options[:context][:page]).per(10)
+      Kaminari.paginate_array(item_list).page(@instance_options[:context][:page]).per(2)
     else
       item_list
     end

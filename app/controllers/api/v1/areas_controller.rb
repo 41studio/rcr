@@ -15,7 +15,7 @@ class Api::V1::AreasController < Api::V1::ApiController
   formats ['json']
   def index
     company = Company.find(@current_user.company_id)
-    @areas = company.areas.page(params[:page]).per(10)
+    @areas  = company.areas.page(params[:page]).per(10)
 
     render json: @areas, meta: pagination_dict(@areas), each_serializer: AreaListSerializer
   end
@@ -26,13 +26,12 @@ class Api::V1::AreasController < Api::V1::ApiController
   param :id, String, required: true, desc: "Area ID"
   param :date, String, desc: "Date for filter appraisals"
   param :page, String, desc: "For pagination"
-  
   formats ['json']
   def show
     @area.search_date = (params[:date].present? ? params[:date] : Date.today)
-    @items = @area.items.page(params[:page]).per(10)
+    items = @area.items.page(params[:page]).per(2)
     
-    render json: @area, context: { meta: pagination_dict(@items), page: params[:page] }
+    render json: @area, context: { page: params[:page] }, meta: pagination_dict(items)
   end
 
   # POST /api/v1/areas/1/clone
