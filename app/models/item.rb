@@ -1,6 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :area
-  has_many :item_times
+  has_many :item_times, -> { order(:time) }
   accepts_nested_attributes_for :item_times, allow_destroy: true
 
   validate :check_duplicate_times

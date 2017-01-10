@@ -3,7 +3,7 @@ class ItemDetailSerializer < ActiveModel::Serializer
 
   def times
     times = []
-    object.item_times.order(:time).each do |item|
+    object.item_times.each do |item|
       times << { id: item.id, time: item.time.strftime("%H:%M") }
     end
     times
