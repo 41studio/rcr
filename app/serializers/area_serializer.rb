@@ -2,7 +2,7 @@ class AreaSerializer < ActiveModel::Serializer
   attributes :id, :name, :item_list, :meta
 
   def meta
-    @instance_options[:context][:meta]
+    @instance_options[:context][:meta] if @instance_options[:context].present?
   end
 
   def item_list
@@ -12,7 +12,7 @@ class AreaSerializer < ActiveModel::Serializer
       item_times_area = []
       item_area = { id: item.id, name: item.name }
       
-      item.item_times.order(:time).each do |item_time|
+      item.item_times.each do |item_time|
         item_area_member = { id: item_time.id, time: item_time.time.strftime("%H:%M") }        
         appraisal_item   = item_time.appraisals.by_day(object.search_date).includes(:indicator).last
         
@@ -36,7 +36,11 @@ class AreaSerializer < ActiveModel::Serializer
       item_list << item_area.merge({ times: item_times_area })
     end
 
-    Kaminari.paginate_array(item_list).page(@instance_options[:context][:page]).per(10)
+    if @instance_options[:context].present?
+      Kaminari.paginate_array(item_list).page(@instance_options[:context][:page]).per(10)
+    else
+      item_list
+    end
   end
 
 end
