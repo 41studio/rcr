@@ -4,7 +4,7 @@ class Api::V1::AreasController < Api::V1::ApiController
 
   def_param_group :area  do
     param :area, Hash do 
-      param :name, String, required: true, desc: "Name of the area"
+      param :name, String, desc: "Name of the area"
     end
   end
 
@@ -38,9 +38,11 @@ class Api::V1::AreasController < Api::V1::ApiController
   api :POST, "/areas/:id/clone", "Clone area"
   header 'Authentication', "User auth token"
   param :id, String, required: true, desc: "Area ID"
+  param_group :area
   formats ['json']
   def clone
     @cloned_area = @area.amoeba_dup
+    @cloned_area.name = area_params[:name] if area_params[:name].present?
 
     if @cloned_area.save
       render json: @cloned_area, status: :created
