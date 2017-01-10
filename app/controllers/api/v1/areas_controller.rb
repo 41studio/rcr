@@ -29,7 +29,7 @@ class Api::V1::AreasController < Api::V1::ApiController
   formats ['json']
   def show
     @area.search_date = (params[:date].present? ? params[:date] : Date.today)
-    items = @area.items.page(params[:page]).per(2)
+    items = @area.items.page(params[:page]).per(10)
     
     render json: @area, context: { page: params[:page] }, meta: pagination_dict(items)
   end

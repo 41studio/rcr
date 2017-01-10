@@ -33,7 +33,7 @@ class AreaSerializer < ActiveModel::Serializer
     end
 
     if @instance_options[:context].present?
-      Kaminari.paginate_array(item_list).page(@instance_options[:context][:page]).per(2)
+      Kaminari.paginate_array(item_list).page(@instance_options[:context][:page]).per(10)
     else
       item_list
     end
