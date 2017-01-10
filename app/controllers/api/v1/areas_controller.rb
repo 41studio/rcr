@@ -11,12 +11,13 @@ class Api::V1::AreasController < Api::V1::ApiController
   # GET /api/v1/areas
   api :GET, "/areas", "Get list of areas"
   header 'Authentication', "User auth token"
+  param :page, String, desc: "For pagination"
   formats ['json']
   def index
     company = Company.find(@current_user.company_id)
-    @areas = company.areas
-
-    render json: @areas, each_serializer: AreaListSerializer
+    @areas = company.areas.page(params[:page]).per(2)
+    
+    render json: @areas, meta: pagination_dict(@areas), each_serializer: AreaListSerializer
   end
 
   # GET /api/v1/areas/1
@@ -24,11 +25,14 @@ class Api::V1::AreasController < Api::V1::ApiController
   header 'Authentication', "User auth token"
   param :id, String, required: true, desc: "Area ID"
   param :date, String, desc: "Date for filter appraisals"
+  param :page, String, desc: "For pagination"
   
   formats ['json']
   def show
     @area.search_date = (params[:date].present? ? params[:date] : Date.today)
-    render json: @area
+    @items = @area.items.page(params[:page]).per(10)
+    
+    render json: @area, context: { meta: pagination_dict(@items), page: params[:page] }
   end
 
   # POST /api/v1/areas
@@ -73,6 +77,16 @@ class Api::V1::AreasController < Api::V1::ApiController
 
 
   private
+
+    def pagination_dict(object)
+      {
+        current_page: object.current_page,
+        next_page:    object.next_page,
+        prev_page:    object.prev_page,
+        total_pages:  object.total_pages,
+        total_count:  object.total_count
+      }
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_area
       @area = Area.find(params[:id])

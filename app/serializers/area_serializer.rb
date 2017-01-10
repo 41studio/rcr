@@ -1,5 +1,9 @@
 class AreaSerializer < ActiveModel::Serializer
-  attributes :id, :name, :item_list
+  attributes :id, :name, :item_list, :meta
+
+  def meta
+    @instance_options[:context][:meta]
+  end
 
   def item_list
     item_list = []
@@ -9,18 +13,8 @@ class AreaSerializer < ActiveModel::Serializer
       item_area = { id: item.id, name: item.name }
       
       item.item_times.order(:time).each do |item_time|
-        # appraisal_items = []
-        item_area_member = { id: item_time.id, time: item_time.time.strftime("%H:%M") }
-
-        # item_time.appraisals.includes(:indicator).by_day(object.search_date).each do |appraisal|
-        #   indicator = appraisal.indicator
-
-        #   appraisal_item = appraisal.attributes.delete_if {|key| ['created_at', 'updated_at'].include? key }.merge(
-        #     { indicator_code: indicator ? indicator.code : '-', indicator_description: indicator ? indicator.description : '-', 
-        #       checked_at: appraisal.created_at.strftime("%Y-%m-%d"), reviewed_at: appraisal.updated_at.strftime("%Y-%m-%d") })
-        # end
-        
-        appraisal_item = item_time.appraisals.by_day(object.search_date).includes(:indicator).last
+        item_area_member = { id: item_time.id, time: item_time.time.strftime("%H:%M") }        
+        appraisal_item   = item_time.appraisals.by_day(object.search_date).includes(:indicator).last
         
         if appraisal_item.present?
           indicator = appraisal_item.indicator
@@ -42,7 +36,7 @@ class AreaSerializer < ActiveModel::Serializer
       item_list << item_area.merge({ times: item_times_area })
     end
 
-    item_list
+    Kaminari.paginate_array(item_list).page(@instance_options[:context][:page]).per(10)
   end
 
 end

@@ -1,4 +1,22 @@
 GIT
+  remote: git://github.com/amatsuda/kaminari.git
+  revision: 21ba072e7e0bc16a132544b8f18df63bdf4729ac
+  branch: master
+  specs:
+    kaminari (1.0.0.rc1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.0.0.rc1)
+      kaminari-activerecord (= 1.0.0.rc1)
+      kaminari-core (= 1.0.0.rc1)
+    kaminari-actionview (1.0.0.rc1)
+      actionview
+      kaminari-core (= 1.0.0.rc1)
+    kaminari-activerecord (1.0.0.rc1)
+      activerecord
+      kaminari-core (= 1.0.0.rc1)
+    kaminari-core (1.0.0.rc1)
+
+GIT
   remote: git://github.com/radar/by_star.git
   revision: 3fe3ef33e98aebcc226cbfea51d1e5101f948c78
   specs:
@@ -173,6 +191,7 @@ DEPENDENCIES
   devise
   devise_invitable
   jwt
+  kaminari!
   listen (~> 3.0.5)
   pg
   pry-rails
