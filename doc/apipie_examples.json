@@ -268,6 +268,53 @@
       }
     }
   ],
+  "areas#clone":[
+    {
+      "verb": "POST",
+      "path": "/api/v1/areas/:id/clone",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": {
+        "id": "3",
+        "type": "areas",
+        "attributes": {
+          "name": "meeting room",
+          "item-list": [
+            {
+              "id": 3,
+              "name": "Window",
+              "times": [
+                {
+                  "id": 3,
+                  "time": "09.00",
+                  "appraisals": {
+                    "id": 3,
+                    "item-time-id": 1,
+                    "indicator-id": 1,
+                    "description": "Great job!",
+                    "checked": true,
+                    "manager-id": 1,
+                    "helper-id": 2,
+                    "indicator-code": "A",
+                    "indicator-description": "Great",
+                    "checked-at": "2017-01-10",
+                    "reviewed-at": "2017-01-10"
+                  }
+                }
+              ]
+            }
+          ],
+          "meta": null
+          }
+        }
+      }
+    }
+  ],
   "areas#create":[
     {
       "verb": "POST",

@@ -12,7 +12,11 @@ Rails.application.routes.draw do
       resources :roles, only: [:index]
       
       resources :areas do
-        resources :items 
+        resources :items
+
+        member do
+          post "clone" => "areas#clone"
+        end
       end
 
       resources :users do

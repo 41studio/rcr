@@ -5,6 +5,10 @@ class Item < ApplicationRecord
 
   validate :check_duplicate_times
 
+  amoeba do
+    include_association :item_times
+  end
+
   private 
 
     def check_duplicate_times

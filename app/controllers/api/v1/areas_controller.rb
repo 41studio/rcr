@@ -1,6 +1,6 @@
 class Api::V1::AreasController < Api::V1::ApiController
   before_action :authenticate_request!
-  before_action :set_area, only: [:show, :update, :destroy]
+  before_action :set_area, only: [:show, :clone, :update, :destroy]
 
   def_param_group :area  do
     param :area, Hash do 
@@ -16,7 +16,7 @@ class Api::V1::AreasController < Api::V1::ApiController
   def index
     company = Company.find(@current_user.company_id)
     @areas = company.areas.page(params[:page]).per(10)
-    
+
     render json: @areas, meta: pagination_dict(@areas), each_serializer: AreaListSerializer
   end
 
@@ -33,6 +33,21 @@ class Api::V1::AreasController < Api::V1::ApiController
     @items = @area.items.page(params[:page]).per(10)
     
     render json: @area, context: { meta: pagination_dict(@items), page: params[:page] }
+  end
+
+  # POST /api/v1/areas/1/clone
+  api :POST, "/areas/:id/clone", "Clone area"
+  header 'Authentication', "User auth token"
+  param :id, String, required: true, desc: "Area ID"
+  formats ['json']
+  def clone
+    @cloned_area = @area.amoeba_dup
+
+    if @cloned_area.save
+      render json: @cloned_area, status: :created
+    else
+      render json: { error: @cloned_area.errors.full_messages.join(", ") }, status: :unprocessable_entity
+    end
   end
 
   # POST /api/v1/areas
@@ -87,6 +102,7 @@ class Api::V1::AreasController < Api::V1::ApiController
         total_count:  object.total_count
       }
     end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_area
       @area = Area.find(params[:id])
