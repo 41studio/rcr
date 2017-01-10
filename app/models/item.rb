@@ -5,6 +5,8 @@ class Item < ApplicationRecord
 
   validate :check_duplicate_times
 
+  scope :search, -> (name) { where("LOWER(name) LIKE ?", "%#{name.to_s.downcase}%") }
+
   amoeba do
     include_association :item_times
   end

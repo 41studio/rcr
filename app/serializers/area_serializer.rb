@@ -2,9 +2,10 @@ class AreaSerializer < ActiveModel::Serializer
   attributes :id, :name, :item_list
 
   def item_list
-    item_list = []
+    parameters = @instance_options[:context]
+    item_list  = []
 
-    object.items.includes(:item_times).each do |item|
+    object.items.includes(:item_times).search(parameters[:name]).each do |item|
       item_times_area = []
       item_area = { id: item.id, name: item.name }
       
@@ -32,8 +33,8 @@ class AreaSerializer < ActiveModel::Serializer
       item_list << item_area.merge({ times: item_times_area })
     end
 
-    if @instance_options[:context].present?
-      Kaminari.paginate_array(item_list).page(@instance_options[:context][:page]).per(10)
+    if parameters.present?
+      Kaminari.paginate_array(item_list).page(parameters[:page]).per(10)
     else
       item_list
     end
