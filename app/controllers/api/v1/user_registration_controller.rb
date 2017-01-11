@@ -18,7 +18,7 @@ class Api::V1::UserRegistrationController < Api::V1::ApiController
     owner_role = Role.find_by_name("owner")
     user = User.new(user_params)
     user.role_id = owner_role.id
-    user.build_company(name: params[:company])
+    user.company = Company.find_or_initialize_by(name: params[:company])
 
     if user.save
       render json: payload(user)
