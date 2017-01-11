@@ -20,6 +20,16 @@ class Api::V1::ApiController < ActionController::API
     end
 
   private
+  
+    def pagination_dict(object)
+      {
+        current_page: object.current_page,
+        next_page:    object.next_page,
+        prev_page:    object.prev_page,
+        total_pages:  object.total_pages,
+        total_count:  object.total_count
+      }
+    end
 
     def http_token
       @http_token ||= if request.headers['Authorization'].present?

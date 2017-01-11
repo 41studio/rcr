@@ -6,11 +6,12 @@ class Api::V1::ActivitiesController < Api::V1::ApiController
   header 'Authentication', "User auth token"
   param :date, String, desc: "Date of activities"
   param :timezone, String, desc: "To get time based on timezone"
+  param :page, String, desc: "For pagination"
   formats ['json']
   def index
-    @activities = Activity.joins_with_trackable(@current_user, params[:date])
+    @activities = Activity.joins_with_trackable(@current_user, params[:date]).page(params[:page]).per(10)
 
-    render json: @activities, context: { timezone: params[:timezone] }, each_serailizer: ActivitySerializer
+    render json: @activities, meta: pagination_dict(@activities), context: { timezone: params[:timezone] }, each_serailizer: ActivitySerializer
   end
 
 end

@@ -42,7 +42,7 @@
     }
   ],
 
-  // activities
+  // activities_controller
   "activities#index":[
     { 
       "verb": "GET",
@@ -82,7 +82,14 @@
               "content": "James checklist Window item on Kitchen area."
             }
           }
-        ]
+        ],
+        "meta": {
+          "current-page": 1,
+          "next-page": null,
+          "prev-page": null,
+          "total-pages": 1,
+          "total-count": 3
+        }
       }
     }
   ],
