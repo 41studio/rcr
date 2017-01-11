@@ -2,7 +2,7 @@ class Api::V1::ActivitiesController < Api::V1::ApiController
   before_action :authenticate_request!
 
   # GET /api/v1/activities
-  api :GET, "/activities", "Get list of activities"
+  api :GET, "/activities", "Get list of activities based on company"
   header 'Authentication', "User auth token"
   param :date, String, desc: "Date of activities"
   param :timezone, String, desc: "To get time based on timezone"
