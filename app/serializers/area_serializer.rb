@@ -5,39 +5,42 @@ class AreaSerializer < ActiveModel::Serializer
     parameters = @instance_options[:context]
     item_list  = []
 
-    object.items.includes(:item_times).search(parameters[:name]).each do |item|
-      item_times_area = []
-      item_area = { id: item.id, name: item.name }
-      
-      item.item_times.each do |item_time|
-        item_area_member = { id: item_time.id, time: item_time.time.strftime("%H:%M") }        
-        appraisal_item   = item_time.appraisals.by_day(object.search_date).includes(:indicator).last
+    if parameters.present?
+      parameters[:items].each do |item|
+        item_times_area = []
+        item_area = { id: item.id, name: item.name }
         
-        if appraisal_item.present?
-          indicator = appraisal_item.indicator
+        item.item_times.each do |item_time|
+          item_area_member = { id: item_time.id, time: item_time.time.strftime("%H:%M") }        
+          appraisal_item   = item_time.appraisals.by_day(object.search_date).includes(:indicator).last
           
-          appraisal_item = 
-            appraisal_item.attributes.delete_if { |key| ['created_at', 'updated_at'].include? key }.merge(
-              { 
-                indicator_code: indicator ? indicator.code : '-', 
-                indicator_description: indicator ? indicator.description : '-',
-                checked_at: appraisal_item.created_at.strftime("%Y-%m-%d"), 
-                reviewed_at: appraisal_item.updated_at.strftime("%Y-%m-%d")
-              }
-            )
+          if appraisal_item.present?
+            indicator = appraisal_item.indicator
+            
+            appraisal_item = 
+              appraisal_item.attributes.delete_if { |key| ['created_at', 'updated_at'].include? key }.merge(
+                { 
+                  indicator_code: indicator ? indicator.code : '-', 
+                  indicator_description: indicator ? indicator.description : '-',
+                  checked_at: appraisal_item.created_at.strftime("%Y-%m-%d"), 
+                  reviewed_at: appraisal_item.updated_at.strftime("%Y-%m-%d")
+                }
+              )
+          end
+
+          item_times_area << item_area_member.merge({ appraisals: appraisal_item })
         end
 
-        item_times_area << item_area_member.merge({ appraisals: appraisal_item })
+        item_list << item_area.merge({ times: item_times_area })
       end
 
-      item_list << item_area.merge({ times: item_times_area })
+      if parameters.present?
+        Kaminari.paginate_array(item_list).page(parameters[:page]).per(10)
+      else
+        item_list
+      end
     end
 
-    if parameters.present?
-      Kaminari.paginate_array(item_list).page(parameters[:page]).per(10)
-    else
-      item_list
-    end
+    item_list
   end
-
 end
