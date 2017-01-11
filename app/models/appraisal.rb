@@ -4,6 +4,9 @@ class Appraisal < ApplicationRecord
 
   delegate :description, to: :indicator, prefix: true,  allow_nil: true
 
+  include PublicActivity::Model
+  tracked
+
   def helper
     User.find(self.helper_id).try(:email)
   end

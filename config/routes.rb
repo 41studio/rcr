@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do 
       resources :appraisals
+      resources :activities, only: :index
       resources :indicators, only: :index
       resources :companies, only: [:show, :update]
       resources :roles, only: [:index]

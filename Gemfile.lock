@@ -1,22 +1,4 @@
 GIT
-  remote: git://github.com/amatsuda/kaminari.git
-  revision: 21ba072e7e0bc16a132544b8f18df63bdf4729ac
-  branch: master
-  specs:
-    kaminari (1.0.0.rc1)
-      activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.0.0.rc1)
-      kaminari-activerecord (= 1.0.0.rc1)
-      kaminari-core (= 1.0.0.rc1)
-    kaminari-actionview (1.0.0.rc1)
-      actionview
-      kaminari-core (= 1.0.0.rc1)
-    kaminari-activerecord (1.0.0.rc1)
-      activerecord
-      kaminari-core (= 1.0.0.rc1)
-    kaminari-core (1.0.0.rc1)
-
-GIT
   remote: git://github.com/radar/by_star.git
   revision: 3fe3ef33e98aebcc226cbfea51d1e5101f948c78
   specs:
@@ -96,6 +78,18 @@ GEM
     jsonapi (0.1.1.beta2)
       json (~> 1.8)
     jwt (1.5.6)
+    kaminari (1.0.0)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.0.0)
+      kaminari-activerecord (= 1.0.0)
+      kaminari-core (= 1.0.0)
+    kaminari-actionview (1.0.0)
+      actionview
+      kaminari-core (= 1.0.0)
+    kaminari-activerecord (1.0.0)
+      activerecord
+      kaminari-core (= 1.0.0)
+    kaminari-core (1.0.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -120,6 +114,11 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    public_activity (1.5.0)
+      actionpack (>= 3.0.0)
+      activerecord (>= 3.0)
+      i18n (>= 0.5.0)
+      railties (>= 3.0.0)
     puma (3.6.0)
     rack (2.0.1)
     rack-cors (0.4.0)
@@ -194,10 +193,11 @@ DEPENDENCIES
   devise
   devise_invitable
   jwt
-  kaminari!
+  kaminari
   listen (~> 3.0.5)
   pg
   pry-rails
+  public_activity
   puma (~> 3.0)
   rack-cors
   rails (~> 5.0.0, >= 5.0.0.1)

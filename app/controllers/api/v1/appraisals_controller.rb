@@ -48,6 +48,8 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
     @appraisal.checked   = true
 
     if @appraisal.save
+      @appraisal.create_activity(key: "appraisal.checked_on", owner: @current_user)
+
       render json: @appraisal, status: :created
     else
       render json: { error: @appraisal.errors.full_messages.join(", ") }, status: :unprocessable_entity
@@ -66,6 +68,8 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
     @appraisal.manager_id = @current_user.id
     
     if @appraisal.update(appraisal_params)
+      @appraisal.create_activity(key: "appraisal.rated_on", owner: @current_user)
+
       render json: @appraisal
     else
       render json: { error: @appraisal.errors.full_messages.join(", ") }, status: :unprocessable_entity

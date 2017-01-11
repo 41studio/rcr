@@ -15,8 +15,9 @@ gem 'rack-cors'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'apipie-rails'
 gem 'by_star', github: "radar/by_star"
-gem 'kaminari', :git => "git://github.com/amatsuda/kaminari.git", :branch => 'master'
+gem 'kaminari'
 gem 'amoeba'
+gem 'public_activity'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'

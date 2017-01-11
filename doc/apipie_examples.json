@@ -42,6 +42,51 @@
     }
   ],
 
+  // activities
+  "activities#index":[
+    { 
+      "verb": "GET",
+      "path": "/api/v1/activities",
+      "query": null,
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": false,
+      "request_data": null,
+      "page": 1,
+      "response_data": {
+        "data": [
+          {
+            "id": "4",
+            "type": "public-activity-activities",
+            "attributes": {
+              "date": "2017-01-11",
+              "time": "15:17",
+              "content": "John Doe give rate Window item on Kitchen area."
+            }
+          },
+          {
+            "id": "3",
+            "type": "public-activity-activities",
+            "attributes": {
+              "date": "2017-01-11",
+              "time": "14:29",
+              "content": "John Doe give rate Table item on Kitchen area."
+            }
+          },
+          {
+            "id": "1",
+            "type": "public-activity-activities",
+            "attributes": {
+              "date": "2017-01-11",
+              "time": "11:12",
+              "content": "James checklist Window item on Kitchen area."
+            }
+          }
+        ]
+      }
+    }
+  ],
+
   // appraisals_controller
   "appraisals#index":[
     { 
