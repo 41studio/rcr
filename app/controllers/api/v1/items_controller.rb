@@ -21,8 +21,7 @@ class Api::V1::ItemsController < Api::V1::ApiController
   param :area_id, String, required: true, desc: "Area ID of items"
   formats ['json']
   def index
-    area = Area.find(params[:area_id])
-    @items = area.items.includes(:item_times)
+    @items = Item.where("area_id = ?", params[:area_id]).includes(:item_times)
 
     render json: @items
   end

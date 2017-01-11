@@ -21,7 +21,8 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
   header 'Authentication', "User auth token"
   formats ['json']
   def index
-    @appraisals = Appraisal.joins(:item_time => [:item => [:area => [:company]]]).where("companies.id = ?", @current_user.company_id)
+    @appraisals = Appraisal.joins(:item_time => [:item => [:area => [:company]]])
+      .where("companies.id = ?", @current_user.company_id)
 
     render json: @appraisals
   end
@@ -44,7 +45,7 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
   def create
     @appraisal = Appraisal.new(appraisal_params)
     @appraisal.helper_id = @current_user.id
-    @appraisal.checked = true
+    @appraisal.checked   = true
 
     if @appraisal.save
       render json: @appraisal, status: :created
@@ -63,6 +64,7 @@ class Api::V1::AppraisalsController < Api::V1::ApiController
   formats ['json']
   def update
     @appraisal.manager_id = @current_user.id
+    
     if @appraisal.update(appraisal_params)
       render json: @appraisal
     else
